@@ -67,7 +67,7 @@ if( count( $_POST ) > 0 ) {
                             <?php foreach( $aBuddies as $oBuddy ): ?>
                                 <div class="col-md-4">
                                     <div class="thumbnail" title="<?= $oBuddy->description; ?>">
-                                        <img src="http://api.adorable.io/avatars/<?= $oBuddy->name; ?>.png" alt="Avatar de <?= $oBuddy->name; ?>" />
+                                        <img src="http://api.adorable.io/avatars/90/<?= $oBuddy->name; ?>.png" alt="Avatar de <?= $oBuddy->name; ?>" width="90" height="90" />
                                         <div class="caption">
                                             <strong><?= $oBuddy->name; ?></strong>
                                         </div>
@@ -88,13 +88,19 @@ if( count( $_POST ) > 0 ) {
                     <h3>Ajouter un coupaing</h3>
                     <form action="./" method="post">
                         <fieldset>
-                            <div class="form-group">
-                                <label for="name">Nom:</label>
-                                <input type="text" class="form-control" name="name" placeholder="Nom du coupaing" required />
+                            <?php if( $bHasErrors ): ?>
+                                <div class="alert alert-danger">
+                                    <strong>Oops !</strong>
+                                    On dirait que vous avez oublié de remplir chaque champs du formulaire !
+                                </div>
+                            <?php endif; ?>
+                            <div class="form-group<?= $bHasErrors && !$sName ? " has-error" : "" ?>">
+                                <label class="control-label" for="name">Nom:</label>
+                                <input type="text" class="form-control" name="name" placeholder="Nom du coupaing" value="<?= $bHasErrors ? $sName : "" ?>" />
                             </div>
-                            <div class="form-group">
-                                <label for="description">Description:</label>
-                                <textarea class="form-control" name="description" placeholder="Description du coupaing" required></textarea>
+                            <div class="form-group<?= $bHasErrors && !$sDescription ? " has-error" : "" ?>">
+                                <label class="control-label" for="description">Description:</label>
+                                <textarea class="form-control" name="description" placeholder="Description du coupaing"><?= $bHasErrors ? $sDescription : "" ?></textarea>
                                 <p class="help-block">Faites court, on manque de place !</p>
                             </div>
                             <div class="text-center">
