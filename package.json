@@ -4,7 +4,7 @@
   "private": true,
   "description": "Base exercise to discover AJAX with jQuery.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "docker run -p 80:80 -v $PWD/app:/var/www/html hepl-mmi/meet-ajax"
   },
   "repository": {
     "type": "git",

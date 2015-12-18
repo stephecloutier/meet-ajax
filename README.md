@@ -23,7 +23,7 @@ Cloner le repo quelque part et assurez-vous que le dossier `app` soit accessible
 ### Avec docker
 
 * `docker build -t hepl-mmi/meet-ajax .`
-* `docker run -p 80:80 -v "$PWD"/app:/var/www/html hepl-mmi/meet-ajax`.
+* `docker run -p 80:80 -v $PWD/app:/var/www/html hepl-mmi/meet-ajax` (aliased to `npm start`).
 
 * * *
 
