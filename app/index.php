@@ -17,7 +17,7 @@ if( isset( $_GET[ "clean" ] ) ) {
 // load json data
 if( file_exists( $sDataFilePath ) ) {
     $sBuddiesFileContent = file_get_contents( $sDataFilePath );
-    $aBuddies = json_decode( $sBuddiesFileContent );
+    $aBuddies = json_decode( $sBuddiesFileContent, true );
 }
 
 // parse form
@@ -26,10 +26,10 @@ if( count( $_POST ) > 0 ) {
     $sName = trim( $_POST[ "name" ] );
     $sDescription = trim( $_POST[ "description" ] );
     if( $sName && $sDescription ) {
-        $oBuddy = new StdClass();
-        $oBuddy->name = $sName;
-        $oBuddy->description = $sDescription;
-        $aBuddies[] = $oBuddy;
+        $aBuddy = array();
+        $aBuddy[ "name" ] = $sName;
+        $aBuddy[ "description" ] = $sDescription;
+        $aBuddies[] = $aBuddy;
         file_put_contents( $sDataFilePath, json_encode( $aBuddies ) );
     } else {
         $bHasErrors = true;
@@ -64,12 +64,12 @@ if( count( $_POST ) > 0 ) {
 
                     <div class="row">
                         <?php if( count( $aBuddies ) ): ?>
-                            <?php foreach( $aBuddies as $oBuddy ): ?>
+                            <?php foreach( $aBuddies as $aBuddy ): ?>
                                 <div class="col-md-4">
-                                    <div class="thumbnail" title="<?= $oBuddy->description; ?>">
-                                        <img src="http://api.adorable.io/avatars/90/<?= $oBuddy->name; ?>.png" alt="Avatar de <?= $oBuddy->name; ?>" width="90" height="90" />
+                                    <div class="thumbnail" title="<?= $aBuddy[ "description" ]; ?>">
+                                        <img src="http://api.adorable.io/avatars/90/<?= $aBuddy[ "name" ]; ?>.png" alt="Avatar de <?= $aBuddy[ "name" ]; ?>" width="90" height="90" />
                                         <div class="caption">
-                                            <strong><?= $oBuddy->name; ?></strong>
+                                            <strong><?= $aBuddy[ "name" ]; ?></strong>
                                         </div>
                                     </div>
                                 </div>
