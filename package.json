@@ -4,7 +4,7 @@
   "private": true,
   "description": "Base exercise to discover AJAX with jQuery.",
   "scripts": {
-    "start": "docker run -p 80:80 -v $PWD/app:/var/www/html hepl-mmi/meet-ajax"
+    "start": "docker run -p 80:80 -v $PWD/app:/var/www/html leny/simplephp"
   },
   "repository": {
     "type": "git",
