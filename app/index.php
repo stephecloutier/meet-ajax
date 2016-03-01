@@ -10,22 +10,22 @@ $sDataFilePath = sys_get_temp_dir() . "/buddies.json";
 $aBuddies = [];
 
 // clean data
-if( isset( $_GET[ "clean" ] ) ) {
+if ( isset( $_GET[ "clean" ] ) ) {
     file_put_contents( $sDataFilePath, json_encode( $aBuddies ) );
 }
 
 // load json data
-if( file_exists( $sDataFilePath ) ) {
+if ( file_exists( $sDataFilePath ) ) {
     $sBuddiesFileContent = file_get_contents( $sDataFilePath );
     $aBuddies = json_decode( $sBuddiesFileContent, true );
 }
 
 // parse form
 $bHasErrors = false;
-if( count( $_POST ) > 0 ) {
+if ( count( $_POST ) > 0 ) {
     $sName = trim( $_POST[ "name" ] );
     $sDescription = trim( $_POST[ "description" ] );
-    if( $sName && $sDescription ) {
+    if ( $sName && $sDescription ) {
         $aBuddy = array();
         $aBuddy[ "name" ] = $sName;
         $aBuddy[ "description" ] = $sDescription;
@@ -36,10 +36,21 @@ if( count( $_POST ) > 0 ) {
     }
 }
 
+if ( !empty( $_SERVER[ "HTTP_X_REQUESTED_WITH" ] ) && strtolower( $_SERVER[ "HTTP_X_REQUESTED_WITH" ] ) === "xmlhttprequest" ) {
+    $aResponse = array();
+    $aResponse[ "name" ] = $sName;
+    $aResponse[ "description" ] = $sDescription;
+    $aResponse[ "avatar" ] = "http://api.adorable.io/avatars/90/" . $sName . ".png";
+    $aResponse[ "alt" ] = "Avatar de " . $sName;
+    header( "Content-Type: application/json" );
+    die( json_encode( $aResponse ) );
+}
+
 ?>
 <!doctype html>
 <html lang="fr">
     <head>
+        <meta charset="utf-8" />
         <title lang="en">Meet AJAX</title>
 
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -62,7 +73,7 @@ if( count( $_POST ) > 0 ) {
                         L'album des coupaings
                     </h3>
 
-                    <div class="row">
+                    <div class="row" id="buddies-container">
                         <?php if( count( $aBuddies ) ): ?>
                             <?php foreach( $aBuddies as $aBuddy ): ?>
                                 <div class="col-md-4">
@@ -134,5 +145,26 @@ if( count( $_POST ) > 0 ) {
                 </div>
             </footer>
         </main>
+
+        <script type="text/template" id="form-error-message">
+            <div class="alert alert-danger">
+                <strong>Oops !</strong>
+                On dirait que vous avez oublié de remplir chaque champs du formulaire !
+            </div>
+        </script>
+
+        <script type="text/template" id="buddy-element">
+            <div class="col-md-4">
+                <div class="thumbnail" title="">
+                    <img src="" alt="" width="90" height="90" />
+                    <div class="caption">
+                        <strong></strong>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/script.js"></script>
     </body>
 </html>
