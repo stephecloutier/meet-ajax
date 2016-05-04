@@ -14,6 +14,14 @@ Ces fichiers servent de base d'exercice pour le cours de découverte de AJAX ave
 
 * * *
 
+## Consignes
+
+Nous avons ici un petit script PHP qui va lire le contenu d'un fichier **json** nommé `buddies.json`, et nous servir une page html contenant une liste graphique des données comprises dans ce fichier json, ainsi qu'un formulaire permettant d'encoder de nouvelles données, et un bouton pour supprimer les données.
+
+Le script est fonctionnel en l'état, mais chaque ajout de données implique un rechargement de la page pour laisser PHP travailler.
+
+Nous allons utiliser AJAX (avec jQuery), pour effectuer ces opération sans avoir à recharger la page à chaque fois. Nous en profiterons pour ajouter un petit contrôle de formulaire, pour éviter d'envoyer des données erronées ou incomplètes au serveur.
+
 ## Fonctionnement
 
 ### Avec MAMP/WAMP
