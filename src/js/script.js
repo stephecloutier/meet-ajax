@@ -38,10 +38,21 @@ const fHandleSubmit = function(oEvent) {
         return console.error("Form has errors.");
     }
 
-    console.info("All is ok.");
+    $.ajax("./", {
+        "method": "POST",
+        "dataType": "json",
+        "data": {
+            "name": sName,
+            "description": sDescription,
+        },
+        "error": function(oXHR, sStatus, sError) {
+            console.error(sStatus, sError);
+        },
+        "success": function(oResponse) {
+            console.log(oResponse);
+        }
+    });
 
-    // 2. check them
-    // 3. display errors if any
     // 4. prepare AJAX request
     // 5. perform AJAX request
     // 6. display new buddy

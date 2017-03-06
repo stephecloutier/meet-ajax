@@ -36,7 +36,7 @@ if ( count( $_POST ) > 0 ) {
     }
 }
 
-/*if ( !empty( $_SERVER[ "HTTP_X_REQUESTED_WITH" ] ) && strtolower( $_SERVER[ "HTTP_X_REQUESTED_WITH" ] ) === "xmlhttprequest" ) {
+if ( !empty( $_SERVER[ "HTTP_X_REQUESTED_WITH" ] ) && strtolower( $_SERVER[ "HTTP_X_REQUESTED_WITH" ] ) === "xmlhttprequest" ) {
     $aResponse = array();
     $aResponse[ "name" ] = $sName;
     $aResponse[ "description" ] = $sDescription;
@@ -44,7 +44,7 @@ if ( count( $_POST ) > 0 ) {
     $aResponse[ "alt" ] = "Avatar de " . $sName;
     header( "Content-Type: application/json" );
     die( json_encode( $aResponse ) );
-}*/
+}
 
 ?>
 <!doctype html>
