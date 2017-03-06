@@ -9,13 +9,19 @@
 let $form;
 
 const fHandleSubmit = function(oEvent) {
-    let sName, sDescription,
+    let $nameInput = $form.find("input[name='name']"),
+        $descriptionTextarea = $form.find("textarea[name='description']"),
+        sName, sDescription,
         bHasErrors = false;
 
     oEvent.preventDefault();
 
-    sName = ($form.find("input[name='name']").val() || "").trim();
-    sDescription = ($form.find("textarea[name='description']").val() || "").trim();
+    sName = ($nameInput.val() || "").trim();
+    sDescription = ($descriptionTextarea.val() || "").trim();
+
+    if(!sName) {
+        bHasErrors = true;
+    }
 
     // 2. check them
     // 3. display errors if any
