@@ -7,7 +7,9 @@
  */
 
 let $form,
-    $tplErrorMessage;
+    $tplErrorMessage,
+    $tplBuddy,
+    $buddiesContainer;
 
 const fHandleSubmit = function(oEvent) {
     let $nameInput = $form.find("input[name='name']"),
@@ -49,16 +51,27 @@ const fHandleSubmit = function(oEvent) {
             console.error(sStatus, sError);
         },
         "success": function(oResponse) {
-            console.log(oResponse);
-        }
-    });
+            let $buddy = $tplBuddy.clone();
 
-    // 4. prepare AJAX request
-    // 5. perform AJAX request
-    // 6. display new buddy
+            $buddy
+                .find(".thumbnail")
+                    .attr("title", oResponse.description)
+                    .find("img")
+                        .attr("src", oResponse.avatar)
+                        .attr("alt", oResponse.alt)
+                        .end()
+                    .find("strong")
+                        .text(oResponse.name);
+            $buddiesContainer.append($buddy);
+
+            $form[0].reset();
+        },
+    });
 };
 
 $(function() {
     ($form = $("form")).on("submit", fHandleSubmit);
     $tplErrorMessage = $($("#form-error-message").html());
+    $tplBuddy = $($("#buddy-element").html());
+    $buddiesContainer = $("#buddies-container");
 });
