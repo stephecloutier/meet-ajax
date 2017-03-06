@@ -40,7 +40,7 @@ const fHandleSubmit = function(oEvent) {
         return console.error("Form has errors.");
     }
 
-    $.ajax("./", {
+    $.ajax($form.attr("action"), {
         "method": "POST",
         "dataType": "json",
         "data": {
@@ -69,9 +69,17 @@ const fHandleSubmit = function(oEvent) {
     });
 };
 
+const fHandleCleanBuddies = function (oEvent) {
+    oEvent.preventDefault();
+
+    $.get($(this).attr("href"));
+    $buddiesContainer.empty();
+};
+
 $(function() {
     ($form = $("form")).on("submit", fHandleSubmit);
     $tplErrorMessage = $($("#form-error-message").html());
     $tplBuddy = $($("#buddy-element").html());
     $buddiesContainer = $("#buddies-container");
+    $("#clean-buddies").on("click", fHandleCleanBuddies);
 });
